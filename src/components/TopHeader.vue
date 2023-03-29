@@ -2,7 +2,7 @@
 import { reactive, ref } from "vue";
 
 const activeKey = ref(0)
-const tabList = reactive([{name: '患者病历', key: 0}, {name: '病历管理', key: 1}])
+const tabList = [{name: '患者病历', key: 0}, {name: '病历管理', key: 1}]
 function changeTab (key) {
   activeKey.value = key
 }
@@ -12,7 +12,7 @@ function changeTab (key) {
 <template>
   <header>
     <img alt="中山大学附属第一医院" class="logo" src="@/assets/logo.png" />
-    <div style="margin-right: 12px;font-size: 1.8rem;">全景电子病历浏览</div>
+    <div class="sys-title">全景电子病历浏览</div>
     <div class="section-tab">
       <template v-for="item in tabList" :key="item.key">
         <div class="section-tab-item" :class="{'active': item.key == activeKey}"
@@ -27,11 +27,17 @@ function changeTab (key) {
 header {
   display: flex;
   background-color: #fff;
+  box-shadow: 0 1px 2px #ccc;
 }
 .logo {
-  padding-top: 4px;
-  padding-bottom: 4px;
-  height: 42px;
+  padding: 8px 10px;
+  height: 30px;
+}
+.sys-title {
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
 }
 .section-tab{
   display: flex;
