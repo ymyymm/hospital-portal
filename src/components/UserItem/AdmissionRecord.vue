@@ -1,9 +1,22 @@
 <script setup>
-import tableData from '@/json/admissionRecord'
+import { reactive, ref } from 'vue'
+
+import admissionRecord from '@/json/admissionRecord'
+import EditRecord from './EditRecord.vue'
+
+const editRecordRef = ref()
+const tableData = reactive(admissionRecord)
+const editRecord = function () {
+  editRecordRef.value.initFn(tableData[0])
+}
+const modifyConfirm = function (updatedRecord) {
+  tableData[0] = updatedRecord
+}
 </script>
 
 <template>
   <div>
+    <EditRecord ref="editRecordRef" @confirm="modifyConfirm"></EditRecord>
     <el-table :data="tableData" height="60vh" stripe style="width: 100%">
       <el-table-column label="文书类型" prop="pageType" />
       <el-table-column label="住院号" prop="admissionNumber" />
@@ -12,7 +25,7 @@ import tableData from '@/json/admissionRecord'
       <el-table-column label="创建时间" prop="createTime" />
       <el-table-column label="操作" type="expand">
         <template #default="props">
-          <div class="detail-show" style="background-color: #c3cad2;">
+          <div class="detail-show" style="background-color: #c3cad2;" @click="editRecord">
             <div class="info-item">
               <div class="info-item-label">【主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;诉】</div>
               <div class="info-item-val">{{ props.row.selfDes }}</div>

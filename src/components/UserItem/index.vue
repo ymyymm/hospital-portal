@@ -2,10 +2,11 @@
 import { ref, watchEffect } from 'vue'
 import RecordItem from './RecordItem.vue'
 import AdmissionRecord from './AdmissionRecord.vue'
-import editInfo from './editInfo.vue'
+import EditInfo from './EditInfo.vue'
 import visitRecord from '@/json/visitRecord.js'
 import tableData from '@/json/admissionRecord'
 import userInfo from '@/json/userInfo'
+import recordTypeList from '@/json/recordTypeList'
 import { useDataFilter } from '@/hooks/useDataFilter'
 const department = ref('')
 const activeIndex = ref(0)
@@ -13,7 +14,6 @@ const activeIndex = ref(0)
 const { recordType, deptTypeList } = useDataFilter(visitRecord)
 const usableType = recordType
 const checkList = ref(JSON.parse(JSON.stringify(recordType)))
-const recordTypeList = ["住院","门诊","急诊","体检","外院"]
 let showRecords = visitRecord
 watchEffect(() => {
   if (!checkList.value.length) { showRecords = [] }
@@ -37,7 +37,7 @@ const editFn = function () {
 
 <template>
   <div class="user-item">
-    <editInfo ref="editInfoRef"></editInfo>
+    <EditInfo ref="editInfoRef"></EditInfo>
     <div class="user-item-top">
       <img alt="" class="icon-btn" src="@/assets/icon/arrow-up.png" />
       <div class="info-summary" @click="editFn">{{ `${userInfo.name}，${userInfo.gender}，${userInfo.birthday}` }}</div>
@@ -90,7 +90,7 @@ const editFn = function () {
           <el-tab-pane label="检查" name="fourth2">检查</el-tab-pane>
           <el-tab-pane label="检验" name="fourth3">检验</el-tab-pane>
           <el-tab-pane label="医嘱" name="fourth4">医嘱</el-tab-pane>
-          <el-tab-pane label="执行医晖" name="fourth5">执行医晖</el-tab-pane>
+          <el-tab-pane label="执行医晖" name="fourth5">执行医嘱</el-tab-pane>
           <el-tab-pane label="全部记录" name="fourth6">全部记录</el-tab-pane>
           <el-tab-pane label="重症监护" name="fourth7">重症监护</el-tab-pane>
           <el-tab-pane label="眼科检查影像" name="fourth8">眼科检查影像</el-tab-pane>
