@@ -115,7 +115,7 @@ function genData (res) {
           <el-tab-pane label="检查" name="fourth2">检查</el-tab-pane>
           <el-tab-pane label="检验" name="fourth3">检验</el-tab-pane>
           <el-tab-pane label="医嘱" name="fourth4">医嘱</el-tab-pane>
-          <el-tab-pane label="执行医晖" name="fourth5">执行医嘱</el-tab-pane>
+          <el-tab-pane label="执行医嘱" name="fourth5">执行医嘱</el-tab-pane>
           <el-tab-pane label="全部记录" name="fourth6">全部记录</el-tab-pane>
           <el-tab-pane label="重症监护" name="fourth7">重症监护</el-tab-pane>
           <el-tab-pane label="眼科检查影像" name="fourth8">眼科检查影像</el-tab-pane>
