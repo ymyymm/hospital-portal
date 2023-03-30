@@ -31,4 +31,5 @@ body {
 .main-scroll .el-dialog__body {
   overflow-y: auto;
   flex-shrink: 2;
+  flex-grow: 2;
 }

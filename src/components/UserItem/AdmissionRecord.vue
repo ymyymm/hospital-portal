@@ -60,7 +60,7 @@ const modifyConfirm = function (updatedRecord) {
             </div>
             <div class="info-item">
               <div class="info-item-label">【医师签名】</div>
-              <div></div>
+              <div class="info-item-val">{{ props.row.doctor }}</div>
             </div>
             
           </div>

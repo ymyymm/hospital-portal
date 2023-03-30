@@ -38,20 +38,15 @@ const classMatch = {
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: all 0.3s;
 
   &.yellow {
-    .record-type {
-      background-color: #dcb18a;
-    }
     .type-name {
       background-color: #b17239;
     }
   }
 
   &.purple {
-    .record-type {
-      background-color: #b3b4d2;
-    }
     .type-name {
       background-color: #273679;
     }
@@ -64,6 +59,23 @@ const classMatch = {
   .record-info {
     color: #d7223e;
   }
+
+  
+  &.yellow {
+    .record-type {
+      background-color: #dcb18a;
+    }
+  }
+
+  &.purple {
+    .record-type {
+      background-color: #b3b4d2;
+    }
+  }
+
+  .record-type {
+    background-color: #f8ced4;
+  }
   
 }
 
@@ -75,8 +87,8 @@ const classMatch = {
   align-items: center;
   justify-content: center;
   border-radius: 23px;
-  background-color: #f8ced4;
   z-index: 1;
+  transition: all 0.3s;
 }
 .type-name {
   height: 34px;

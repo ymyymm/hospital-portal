@@ -44,6 +44,10 @@ defineExpose({ initFn })
       <el-form-item label="【医疗小组长】">
         <el-input type="textarea" :rows="2" v-model="recordModel.medicalTeamLeader" />
       </el-form-item>
+      <el-form-item label="【医师签名】">
+        <el-input type="textarea" :rows="2" v-model="recordModel.doctor" />
+      </el-form-item>
+      
     </el-form>
     <template #footer>
       <span class="dialog-footer">

@@ -1,43 +1,68 @@
 <script setup>
 import { ref, watchEffect } from 'vue'
+
 import RecordItem from './RecordItem.vue'
 import AdmissionRecord from './AdmissionRecord.vue'
 import EditInfo from './EditInfo.vue'
+
 import visitRecord from '@/json/visitRecord.js'
-import tableData from '@/json/admissionRecord'
-import userInfo from '@/json/userInfo'
+import userInfoTemp from '@/json/userInfo'
 import recordTypeList from '@/json/recordTypeList'
+
 import { useDataFilter } from '@/hooks/useDataFilter'
 const department = ref('')
 const activeIndex = ref(0)
 
-const { recordType, deptTypeList } = useDataFilter(visitRecord)
-const usableType = recordType
-const checkList = ref(JSON.parse(JSON.stringify(recordType)))
-let showRecords = visitRecord
+// 用户信息
+let userInfo = ref(userInfoTemp)
+// 挂号信息
+let allRecords = ref([])
+let showRecords = ref([])
+let deptList = ref([])
+let usableType = ref([])
+let checkList = ref([])
+// 初始化
+genData(visitRecord)
+// 筛选功能
 watchEffect(() => {
-  if (!checkList.value.length) { showRecords = [] }
+  if (!checkList.value.length) { showRecords.value = [] }
   const allDeptFlag = department.value == ''
-  showRecords = visitRecord.filter(item => {
+  // const list = isRef(allRecords)? unref(allRecords): allRecords
+  showRecords = allRecords.value.filter(item => {
     return (allDeptFlag || (!allDeptFlag && item.dept == department.value)) && (checkList.value.indexOf(item.type) != -1)
   })
   activeIndex.value = 0
 })
-
+// 选中记录
 const selectRecord = function (index) {
   activeIndex.value = index
 }
+// 默认显示入院记录
 const activeName = ref('third')
 const editInfoRef = ref()
+// 编辑显示信息
 const editFn = function () {
-  console.log('in')
-  editInfoRef.value.initFn(userInfo, tableData[0])
+  editInfoRef.value.initFn(userInfo.value, allRecords.value)
 }
+// 修改更新
+const confirmFn = function (user, records) {
+  userInfo.value = user
+  genData(records)
+}
+
+function genData (res) {
+  allRecords.value = res
+  let { recordType,  deptTypeList } = useDataFilter(res)
+  usableType.value = recordType
+  checkList.value = JSON.parse(JSON.stringify(recordType))
+  deptList.value = deptTypeList
+}
+
 </script>
 
 <template>
   <div class="user-item">
-    <EditInfo ref="editInfoRef"></EditInfo>
+    <EditInfo ref="editInfoRef" @confirm="confirmFn"></EditInfo>
     <div class="user-item-top">
       <img alt="" class="icon-btn" src="@/assets/icon/arrow-up.png" />
       <div class="info-summary" @click="editFn">{{ `${userInfo.name}，${userInfo.gender}，${userInfo.birthday}` }}</div>
@@ -62,7 +87,7 @@ const editFn = function () {
         <div style="margin: 8px 14px;">
           <el-select v-model="department" placeholder="" size="default">
             <el-option
-              v-for="item in deptTypeList"
+              v-for="item in deptList"
               :key="item.value"
               :label="item.label"
               :value="item.value"
